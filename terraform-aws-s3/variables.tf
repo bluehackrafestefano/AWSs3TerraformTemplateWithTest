@@ -37,5 +37,5 @@ variable "tag_bucket_environment" {
 variable "aws_region" {
   description = "AWS region"
   type        = string
-  default     = "us-east-1"
+  # default     = "us-east-1"
 }

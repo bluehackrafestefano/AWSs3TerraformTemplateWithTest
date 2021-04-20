@@ -10,10 +10,6 @@ terraform {
   required_version = ">= 0.12.26"
 }
 
-provider "aws" {
-  region = var.aws_region
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # DEPLOY A S3 BUCKET WITH VERSIONING ENABLED INCLUDING TAGS, KMS
 # See test/terraform_aws_s3_example_test.go for how to write automated tests for this code.
