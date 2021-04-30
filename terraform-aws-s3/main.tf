@@ -21,14 +21,6 @@ data "aws_iam_policy_document" "s3_bucket_policy" {
   statement {
     effect = "Allow"
     principals {
-      # TF-UPGRADE-TODO: In Terraform v0.10 and earlier, it was sometimes necessary to
-      # force an interpolation expression to be interpreted as a list by wrapping it
-      # in an extra set of list brackets. That form was supported for compatibility in
-      # v0.11, but is no longer supported in Terraform v0.12.
-      #
-      # If the expression in the following list itself returns a list, remove the
-      # brackets to avoid interpretation as a list of lists. If the expression
-      # returns a single list item then leave it as-is and remove this TODO comment.
       identifiers = [local.aws_account_id]
       type        = "AWS"
     }
@@ -47,6 +39,10 @@ data "aws_iam_policy_document" "s3_bucket_policy" {
 
     condition {
       test     = "Bool"
+      # Instead of using an explicit deny statement, the policy allows 
+      # access to requests that meet the condition "aws:SecureTransport": "true". 
+      # This statement allows anonymous access to s3:GetObject for all objects 
+      # in the bucket if the request uses HTTPS.
       variable = "aws:SecureTransport"
       values = [
         "false",
